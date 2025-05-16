@@ -30,3 +30,10 @@ select * from emp where sal >= 3000;
 -- 부서번호(deptno)만 조회 해보기
 select ename, sal, deptno from emp;
 
+-- ----------------------------------------------------
+-- distinct 중복 제거 
+select distinct job from emp;
+
+-- all(생략가능, 기본값) , 중복 포함, 
+select all job from emp;
+select job from emp;
