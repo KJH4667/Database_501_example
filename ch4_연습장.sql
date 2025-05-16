@@ -44,13 +44,21 @@ select job from emp;
 -- 여러명 있어도 한번만 결과에 나타남
 select DISTINCT JOB, DEPTNO FROM EMP;
 select JOB, DEPTNO FROM EMP;
+-- 주의사항
+-- 1 DISTINCT 는 SELECT 문 뒤에 위치를 하고
+-- 2 하나의 컬럼에 적용 되는게 아니라, 예시
+-- 2개의 컬럼이 하나처럼 취급이 되어서 동작. 
 
 --퀴즈1 
--- EMP 테이블에서 중복되지 않는 부서번호만 출력하기 
+-- EMP 테이블에서 중복되지 않는 부서번호만 출력하기
+SELECT DISTINCT DEPTNO FROM EMP;
 -- 퀴즈 2
 --EMP 테이블에서 사원 직무와 부서번호 
 -- 조합이 고유한 결과 한번더 해보기
+SELECT DISTINCT JOB, DEPTNO FROM EMP;
 --퀴즈3 
 --EMP 테이블에서 중복을 제거하지 않고 
 -- 사원 직무와 부서 번호를 모두 출력하기 
 -- ALL 키워드 이용해보기
+SELECT ALL JOB, DEPTNO FROM EMP;
+
