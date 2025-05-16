@@ -61,4 +61,10 @@ SELECT DISTINCT JOB, DEPTNO FROM EMP;
 -- 사원 직무와 부서 번호를 모두 출력하기 
 -- ALL 키워드 이용해보기
 SELECT ALL JOB, DEPTNO FROM EMP;
+-- -------------------------------------------------
 
+-- ALIAS 별칭 사용해보기
+SELECT ENAME AS "사원명" FROM EMP;
+SELECT ENAME AS "직원 이름" FROM EMP;
+SELECT ENAME "직원 이름2" FROM EMP;
+SELECT ENAME AS "사원명" , SAL * 12 AS "연봉" FROM EMP;
