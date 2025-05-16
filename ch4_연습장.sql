@@ -18,11 +18,15 @@ select ename, job from emp;
 
 -- 기본 퀴즈1
 -- 셀력션 - 'SALES' 부서 소속 직원만 조회 
+select * from emp where deptno = 30;
 -- 기본 퀴즈2
 -- 프로젝션 - 사원명과 입사일만 조회 
+select ename, hiredate from emp;
 -- 기본 퀴즈3
 -- 급여가 3000 이상인 직원만 조회
+select * from emp where sal >= 3000;
 -- 기본 퀴즈4
 -- EMP 테이블에서 이름(ename), 급여(sal), 
 -- 부서번호(deptno)만 조회 해보기
+select ename, sal, deptno from emp;
 
