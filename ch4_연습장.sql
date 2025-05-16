@@ -37,3 +37,20 @@ select distinct job from emp;
 -- all(생략가능, 기본값) , 중복 포함, 
 select all job from emp;
 select job from emp;
+
+-- 직무 + 부서 번호 조합의 고유 데이터 추출 
+-- JOB 직무, 부서 번호 조합의 중복 되지 않는 행만 조회.
+-- 결론, 동일한 직무와 동일한 부서 번호를 가진 직원이 
+-- 여러명 있어도 한번만 결과에 나타남
+select DISTINCT JOB, DEPTNO FROM EMP;
+select JOB, DEPTNO FROM EMP;
+
+--퀴즈1 
+-- EMP 테이블에서 중복되지 않는 부서번호만 출력하기 
+-- 퀴즈 2
+--EMP 테이블에서 사원 직무와 부서번호 
+-- 조합이 고유한 결과 한번더 해보기
+--퀴즈3 
+--EMP 테이블에서 중복을 제거하지 않고 
+-- 사원 직무와 부서 번호를 모두 출력하기 
+-- ALL 키워드 이용해보기
