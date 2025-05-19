@@ -88,6 +88,10 @@ job as "직무" from emp;
 -- 특정 옵션 함수 
 -- NVL(COMM,0):COMM 있으면, COMM 값으로 출력,
 -- NVL(COMM,0):COMM 없으면, 0 값으로 출력,
+-- NVL 의미 : N(NULL) 값이 없음, 
+-- V (value) : 값, 
+-- L (Logic) : 논리 
+-- null 값을 처리하기 위한 로직
 select ename as "사원명", sal as "기본급",
 sal * 12 + NVL(COMM,0) AS "총 급여" FROM EMP;
 
