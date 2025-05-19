@@ -104,3 +104,42 @@ select ename as "사원명", sal as "기본급",
 sal * 12 + NVL(COMM,0) AS "총 급여" FROM EMP
 order by sal asc;
 
+
+-- 복합 컬럼 이용 
+-- 정렬 기준, 첫 번째 기준으로 정렬하고, 
+-- 동일한 값이 있을 때, 두번째 기준 적용.
+
+-- 부서 내에서 급여를 높은 순서 정렬
+SELECT * FROM EMP 
+ORDER BY DEPTNO ASC, SAL DESC;
+
+-- 열 인덱스로 정렬하기 
+-- ename(1),job(2), sal(3)
+select ename,job, sal from emp 
+order by 3 desc;
+
+-- 시간은 , 최신일 값으로 하면 큰값 
+-- 과거 일수록 값으로 하면 작은 값. 
+-- emp 테이블에서 모든 사원의 입사입 기준으로 
+-- 최신순으로 정렬 해보기. 
+select * from emp 
+order by hiredate desc;
+
+
+-- 퀴즈1
+-- 커미션이 높은 순으로, 급여가 낮은 순으로 정렬 출력
+-- 특정 컬럼 언급 없으면 모든 컬럼 출력. 
+
+-- 퀴즈2
+-- emp 테이블에서 이름, 부서번호, 급여를 출력 하되
+-- 급여가 높은 순으로 정렬해보기, 한번더 
+
+-- 퀴즈 3 
+-- salgrade 테이블에서 급여 등급(grade) 을 오름차순, 
+-- 최고 급여(hisal) 내림차순으로 정렬해보기.
+-- 특정 컬럼 언급 없으면 모든 컬럼 출력. 
+
+
+
+
+
