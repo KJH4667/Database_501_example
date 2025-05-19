@@ -198,21 +198,27 @@ WHERE DEPTNO = 20;
 
 --퀴즈1
 -- 급여가 2500 이상인 사원들의 이름과 급여를 조회하기 
-
+SELECT ENAME, SAL FROM EMP 
+WHERE SAL >= 2500;
 --퀴즈2 
 -- 부서번호가 10 또는 20이 이면서, 직무가 'CLERK'인 사원 조회하기
-
+SELECT * FROM EMP WHERE DEPTNO IN (10,20) 
+AND JOB = 'CLERK';
 --퀴즈3
 -- 수당이 존재하지 않는 사원 중에서 직무가 'SALESMAN' 인 사원 조회하기
-
+SELECT * FROM EMP WHERE JOB = 'SALESMAN'
+AND COMM IS NULL;
 --퀴즈4
 -- 직무가 'CLERK' 인 사원 중 급여가 1000 이상 1500 이하 인 사원 조회하기
-
+SELECT * FROM EMP WHERE JOB = 'CLERK' 
+AND SAL BETWEEN 1000 AND 1500;
 --퀴즈5 
 -- 이름에 'DA'을 포함하는 사원 이름과 직무를 조회하기 
-
+SELECT ENAME, JOB FROM EMP 
+WHERE ENAME LIKE '%DA%';
 --퀴즈6
 -- 부서번호가 10번인 사원 중, 직무가 'MANAGER'가 아닌 사원을 출력하기 
 -- 단 MGR이 NULL 인 사람도 포함하기 
-
+SELECT * FROM EMP WHERE DEPTNO = 10 
+AND (JOB != 'MANAGER' OR MGR IS NULL);
 
