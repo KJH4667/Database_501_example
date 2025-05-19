@@ -95,3 +95,12 @@ job as "직무" from emp;
 select ename as "사원명", sal as "기본급",
 sal * 12 + NVL(COMM,0) AS "총 급여" FROM EMP;
 
+-- order by 컬럼명 desc(asc 기본)
+select ename as "사원명", sal as "기본급",
+sal * 12 + NVL(COMM,0) AS "총 급여" FROM EMP
+order by sal desc;
+
+select ename as "사원명", sal as "기본급",
+sal * 12 + NVL(COMM,0) AS "총 급여" FROM EMP
+order by sal asc;
+
