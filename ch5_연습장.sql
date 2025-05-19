@@ -84,6 +84,118 @@ OR DEPTNO = 30) AND SAL >= 2000;
 SELECT * FROM EMP 
 WHERE DEPTNO IN (10,20,30)AND SAL >= 2000;
 
+-------------------------------------------------------------------
+-- 5-3 연산자 종류와 활용 기본 
+-- 산술 연산자 
+SELECT ENAME, SAL * 12 AS "기본 연봉" FROM EMP;
+
+-- 비교 연산자 
+SELECT * FROM EMP WHERE SAL >= 2000;
+
+-- 문자 비교 ( 1글자 VS 여러글자)
+-- L 보다 뒤에 , 사전식 기준 생각하기
+SELECT * FROM EMP WHERE ENAME > 'L';
+-- 여러 글자 , 순서대로 앞의 글자 비교하고 다음글자 비교
+SELECT * FROM EMP WHERE ENAME < 'MILLER';
+
+-- 등가 비교 연산자 
+-- !=, <>, ^=
+-- JOB CLERK 이 아닌 사원만 출력 해보기 
+SELECT * FROM EMP WHERE JOB != 'CLERK';
+SELECT * FROM EMP WHERE JOB <> 'CLERK';
+SELECT * FROM EMP WHERE JOB ^= 'CLERK';
+
+-- NOT 연산자 
+-- JOB 이 MANAGER 가 아닌 사원만 출력 해보기 
+SELECT * FROM EMP WHERE NOT JOB = 'MANAGER';
+
+-- IN 연산자 (NOT 포함 버전)
+-- OR을 간결히 사용하기, 
+-- 컬럼명 IN (값1,값2,값3,...)
+-- 컬럼의 값이 IN 연산자 안의 값을 만족하면 TRUE 
+-- 부서 번호가 10, 30 이 아닌 사원을 출력 해보기. 
+SELECT * FROM EMP WHERE DEPTNO NOT IN (10,30);
+
+-- BETWEEN A AND B 
+-- 급여가 1100 이상 3000 이하 인 사원 출력 해보기 
+SELECT * FROM EMP WHERE SAL BETWEEN 1100 AND 3000;
+
+-- 위의 경우의 반대인 경우 
+SELECT * FROM EMP WHERE SAL NOT BETWEEN 1100 AND 3000;
+
+-- LIKE 연산자 
+-- 컬러명 LIKE '조건식'
+-- % : 모든 글자 
+-- (_)언더바 : 특정 글자 수
+-- 사원명이 S로 시작하는 사원 출력 해보기 
+SELECT * FROM EMP WHERE ENAME LIKE 'S%';
+
+--사원명이 두 번째 글자가 L을 포함하는 사원 출력하기
+SELECT * FROM EMP WHERE ENAME LIKE '_L%';
+
+-- 사원명이 AM 글자를 포함하는 사원 출력하기
+SELECT * FROM EMP WHERE ENAME LIKE '%AM%';
+
+--위의 경우, 반대
+SELECT * FROM EMP WHERE ENAME NOT LIKE '%AM%';
+
+-- IS NULL 널 조건이니? 
+-- IS NOT NULL 널이 아닌 조건이니?
+-- 커미션이 널인 사원만 출력하기 
+SELECT * FROM EMP WHERE COMM IS NULL;
+-- 위의 경우 반대인 경우 
+SELECT * FROM EMP WHERE COMM IS NOT NULL;
+
+-- AND + IS NULL 
+-- JOB 가 SALESMAN 이고 COMM 이 널 인 사원만 출력
+SELECT * FROM EMP 
+WHERE JOB = 'SALESMAN'
+AND COMM IS NULL;
+
+-- 위의 경우 반대 
+SELECT * FROM EMP 
+WHERE JOB = 'SALESMAN'
+AND COMM IS NOT NULL;
+
+-- OR + IS NULL 
+-- JOB MANAGER 이거나 
+-- MGR(직속상관)이 NULL 인 사원 출력하기
+SELECT * FROM EMP WHERE JOB = 'MANAGER'
+OR 
+MGR IS NULL;
+
+-- 집합 연산자 
+-- 1 UNION 중복 제거 
+-- JOB MANAGER 이거나 ,  DEPTNO 10인 사원 출력하기 
+SELECT ENAME,JOB,DEPTNO FROM EMP WHERE JOB = 'MANAGER'
+UNION 
+SELECT ENAME,JOB,DEPTNO FROM EMP WHERE DEPTNO = 10;
+-- CLARK 중복이 되어서 출력이 안됨
+
+-- 2 UNION ALL 중복 포함
+-- JOB MANAGER 이거나 ,  DEPTNO 10인 사원 출력하기 
+SELECT ENAME,JOB,DEPTNO FROM EMP WHERE JOB = 'MANAGER'
+UNION ALL
+SELECT ENAME,JOB,DEPTNO FROM EMP WHERE DEPTNO = 10;
+-- CLARK 중복이 되어서 출력이 됨
+
+-- 3 MINUS (차집합)
+-- 부서 번호가 10인 사원들 중에서 
+-- 직무가 MANAGER 인 사원을 제외한 모든 사원 출력하기. 
+SELECT ENAME,JOB,DEPTNO FROM EMP 
+WHERE DEPTNO = 10
+MINUS 
+SELECT ENAME,JOB,DEPTNO FROM EMP 
+WHERE JOB = 'MANAGER';
+
+--4 INTERSECT (교집합)
+-- JOB CLERK 이면서 동시에, 부서번호가 20인 사원 SELECT ENAME,JOB,DEPTNO FROM EMP 
+SELECT ENAME,JOB,DEPTNO FROM EMP 
+WHERE JOB = 'CLERK'
+INTERSECT
+SELECT ENAME,JOB,DEPTNO FROM EMP 
+WHERE DEPTNO = 20;
+
 
 
 
