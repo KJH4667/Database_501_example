@@ -114,3 +114,42 @@ FROM EMP;
 SELECT ENAME || '-' || JOB AS "사원명 + 부서번호"
 FROM EMP;
 
+
+--숫자 관련 함수 기본 
+-- 급여의 소수점 둘째 자리에서 반올림 
+SELECT ENAME,SAL, ROUND(123.456, 1) AS "ROUND(123.456, 1)" 
+FROM EMP ;
+-- 내림 소수점 이하 제거 TRUNC
+SELECT ENAME,SAL, TRUNC(123.456, 0) AS "TRUNC(123.456, 1)" 
+FROM EMP ;
+
+-- 사원 번호를 2로 나눈 나머지 출력 
+SELECT ENAME, EMPNO, MOD(EMPNO,2) AS "2로 나눈 나머지"
+FROM EMP;
+
+--CEIL, FLOOR 비교 
+SELECT ENAME, SAL, CEIL(SAL / 3), FLOOR(SAL /3)
+FROM EMP;
+
+-- 퀴즈1 ROUND
+-- 소수점 둘째 자리까지 반올림 해보기, 
+-- 임의 숫자 : 123.4567
+-- 별칭 : 소수점 둘째 자리까지 반올림
+-- FROM DUAL 
+
+-- 퀴즈2 TRUNC
+-- 소수점 첫째 자리에서 내림 해보기, 
+-- 임의 숫자 : 123.4567
+-- 별칭 : 소수점 첫째 자리에서 내림
+-- FROM DUAL 
+
+-- 퀴즈3 CEIL, FLOOR
+-- CEIL, FLOOR 비교 해보기, 
+-- 임의 숫자 : 1.5, -1.5
+-- 별칭 : CEIL , FLOOR
+-- FROM DUAL 
+
+-- 퀴즈4 MOD
+-- 사원 번호를 4로 나눈 나머지 출력
+-- 별칭 : 4로 나눈 나머지
+-- FROM DUAL 
