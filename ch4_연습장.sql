@@ -129,15 +129,18 @@ order by hiredate desc;
 -- 퀴즈1
 -- 커미션이 높은 순으로, 급여가 낮은 순으로 정렬 출력
 -- 특정 컬럼 언급 없으면 모든 컬럼 출력. 
-
+select * from emp order by comm desc, sal asc;
 -- 퀴즈2
 -- emp 테이블에서 이름, 부서번호, 급여를 출력 하되
 -- 급여가 높은 순으로 정렬해보기, 한번더 
-
+select ename, deptno, sal from emp
+order by sal desc;
 -- 퀴즈 3 
 -- salgrade 테이블에서 급여 등급(grade) 을 오름차순, 
 -- 최고 급여(hisal) 내림차순으로 정렬해보기.
 -- 특정 컬럼 언급 없으면 모든 컬럼 출력. 
+select * from salgrade 
+order by grade asc, hisal desc;
 
 
 
