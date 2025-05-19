@@ -54,16 +54,35 @@ AND SAL > 2000;
 -- 급여가 1500 이상이고, 
 -- 커미션이 NULL 이 아닌 사원만 조회
 -- 힌트) NULL 이 아닌 표현 : IS NOT NULL
+SELECT * FROM EMP 
+WHERE SAL >= 1500 
+AND 
+COMM IS NOT NULL;
 
 -- 퀴즈2
--- 직무가 'SALESMAN' 이거나, 급여가 3000 이상인 사원 출력
+-- 직무가 'SALESMAN' 이거나, 
+-- 급여가 3000 이상인 사원 출력
+SELECT * FROM EMP
+WHERE JOB = 'SALESMAN'
+OR
+SAL >= 3000;
 
 -- 퀴즈3
 -- 부서번호가 10,20,30 중 하나이고, 
 -- 급여가 2000 이상인 사원 출력
 -- 힌트) 10,20,30 중 하나 표현 : IN (10, 20, 30) 이용
+-- OR 조건을 간단히 표현 하기 위해서 
+-- 컬럼명 IN (값1, 값2, 값3,...)
+-- 컬럼명의 조건이 IN 안의 값을 하나라도 만족한다면 TRUE
 
+SELECT * FROM EMP 
+WHERE (DEPTNO = 10
+OR DEPTNO = 20 
+OR DEPTNO = 30) AND SAL >= 2000;
 
+-- IN 연산자 이용해서 표현해보기 
+SELECT * FROM EMP 
+WHERE DEPTNO IN (10,20,30)AND SAL >= 2000;
 
 
 
