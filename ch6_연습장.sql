@@ -73,30 +73,44 @@ SELECT '연결할 문자열 2개이상' || ' 버티컬 바 2개를 붙이기'
 -- 주민번호에서 생년월일만 추출 
 -- 별칭 생년월일로 출력 해보기, 
 -- FROM DUAL  이용하기
+SELECT SUBSTR('841205-1234567',1,6) AS "생년월일"
+FROM DUAL;
 
 --퀴즈2 , INSTR
 -- 이메일에서 @ 위치 찾기
 -- 별칭 골뱅이위치로 출력 해보기, 
 -- FROM DUAL  이용하기
+SELECT INSTR('LSY@naver.com','@') AS "골뱅이위치"
+FROM DUAL;
 
 --퀴즈3, REPLACE
 -- 전화번호에서 - 제거 해보기, 010-7661-3709
 -- 별칭 정리된번호로 출력 해보기, 
 -- FROM DUAL  이용하기
+SELECT REPLACE('010-7661-3709','-','') AS "정리된번호"
+FROM DUAL;
 
 --퀴즈4, LPAD
 -- 부서번호를 왼쪽으로 공백 채우기 
 -- 별칭 정렬용 출력 해보기, 
 -- FROM EMP  이용하기
+SELECT ENAME, LPAD(DEPTNO, 4, ' ') AS "정렬용"
+FROM EMP;
 
 --퀴즈5, TRIM 
--- 앞뒤 공백 제거 해보기 , 예제 문자열 :공백공백공백(본인이름)공백공백공백
+-- 앞뒤 공백 제거 해보기 , 
+-- 예제 문자열 :공백공백공백(본인이름)공백공백공백
 -- 별칭 정리된문자 출력 해보기, 
 -- FROM  DUAL  이용하기
+SELECT TRIM('   이상용   ') AS "정리된문자"
+FROM DUAL;
 
 --퀴즈6, CONCAT 
 -- 사원명 + 부서번호 
 -- 별칭 사원명 + 부서번호 출력 해보기, 
 -- FROM  EMP  이용하기
-
+SELECT CONCAT(ENAME, JOB) AS "사원명 + 부서번호"
+FROM EMP;
+SELECT ENAME || '-' || JOB AS "사원명 + 부서번호"
+FROM EMP;
 
