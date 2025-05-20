@@ -37,13 +37,43 @@ FROM EMP E, SALGRADE S;
 -- `DECODE`로 JOB에 따른 직책 명시 
 -- (CLERK: 사원, MANAGER: 관리자, ANALYST: 분석가)
 -- 별칭 : 직책 이름
+SELECT ENAME, 
+DECODE(JOB,
+'CLERK','사원',
+'MANAGER', '관리자',
+'ANALYST','분석가',
+'기타') 
+AS "직책 이름" FROM EMP;
 
 --퀴즈2
 -- `CASE`로 근속 연수 분류 
 -- (HIREDATE 기준, 1982년 이전: 장기근속, 이후: 일반)
 -- 별칭 : 근속 연수
+SELECT ENAME, HIREDATE,
+CASE 
+WHEN HIREDATE < TO_DATE('1982-01-01','YYYY-MM-DD') THEN '장기근속'
+ELSE '일반'
+END
+AS "근속 연수" FROM EMP;
+
 
 --퀴즈3
 -- `CASE` 단순형으로 DEPTNO에 따라 위치 표시 
 --(10: NEW YORK, 20: DALLAS, 30: CHICAGO)
 -- 별칭 : 근무 지역
+SELECT ENAME, 
+CASE DEPTNO 
+WHEN 10 THEN '뉴욕'
+WHEN 20 THEN '달러스'
+WHEN 30 THEN '시카고'
+ELSE '미지정'
+END
+AS "근무 지역" FROM EMP;
+
+
+
+
+
+
+
+
