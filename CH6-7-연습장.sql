@@ -32,3 +32,18 @@ WHEN E.SAL BETWEEN S.LOSAL AND S.HISAL THEN S.GRADE
 END 
 AS "급여 등급"
 FROM EMP E, SALGRADE S;
+
+--퀴즈1 
+-- `DECODE`로 JOB에 따른 직책 명시 
+-- (CLERK: 사원, MANAGER: 관리자, ANALYST: 분석가)
+-- 별칭 : 직책 이름
+
+--퀴즈2
+-- `CASE`로 근속 연수 분류 
+-- (HIREDATE 기준, 1982년 이전: 장기근속, 이후: 일반)
+-- 별칭 : 근속 연수
+
+--퀴즈3
+-- `CASE` 단순형으로 DEPTNO에 따라 위치 표시 
+--(10: NEW YORK, 20: DALLAS, 30: CHICAGO)
+-- 별칭 : 근무 지역
