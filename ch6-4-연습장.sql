@@ -24,13 +24,23 @@ SELECT ENAME, ADD_MONTHS(HIREDATE, 120)
 AS "10주년" FROM EMP;
 
 --퀴즈1 
---입사일로부터 32년이 지나지 않은 사원만 출력해보기. 
+--입사일로부터 32년이 지난 사원만 출력해보기. 
+-- 32 * 12 = 384
+SELECT * FROM EMP ;
+SELECT * FROM EMP 
+WHERE MONTHS_BETWEEN(SYSDATE, HIREDATE) > 384;
 
 --퀴즈2
 -- 사원별로 입사일 기준 다음 월요일 출력해보기 
+SELECT ENAME, HIREDATE, 
+NEXT_DAY(HIREDATE, '월요일')AS "다음 월요일"
+FROM EMP;
 
 --퀴즈3 
 -- 사원의 입사일을 월 단위로 반올림 해서 출력 해보기.
+SELECT ENAME, HIREDATE,
+ROUND(HIREDATE, 'MONTH') AS "반올림일자"
+FROM EMP;
 
 ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS';
 SELECT SYSDATE FROM DUAL;
