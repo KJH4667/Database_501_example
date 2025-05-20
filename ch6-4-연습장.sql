@@ -35,3 +35,28 @@ AS "10주년" FROM EMP;
 ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS';
 SELECT SYSDATE FROM DUAL;
 
+
+-- 오라클 시간 동기화 
+-- 도커 데스크톱 실행 후 
+-- 도커 데스크톱 -> 컨테이너 아이디 복사 
+-- 예시 
+-- 1ab078435e089644fb46258ee8b017f3aa2b6e2dbc30bb718a812c8de2941a9e
+
+-- 터미널에서 해보기. 
+-- 마이크로 소프트의 스토어 : store -> 터미널 
+-- docker exec -it 컨테이너 아이디 복사  /bin/bash
+
+-- dpkg-reconfigure tzdata 
+
+-- 만약, 안될 경우1, apt-get update
+-- 만약, 안될 경우2, apt-get install --reinstall tzdata
+
+-- 6 asis , 선택
+
+-- 69 seolu 선택 
+
+-- date, 명령어 확인
+
+
+
+
