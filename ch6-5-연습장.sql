@@ -33,13 +33,25 @@ TRUNC((TO_DATE('2025-06-01', 'YYYY-MM-DD') - SYSDATE) * 24)
 AS "D-DAY 남은 시간" FROM DUAL;
 
 --퀴즈1 
--- 1981년 6월 1일 이후 입사한 사원 출력 해보기 
+-- 1981년 6월 1일 이후 입사한 사원 출력 해보기
+-- 주어진 조건의 날짜 문자열 타입인데, 
+-- 문자열에서 -> 날짜 타입으로 변환
+DESC EMP;
+SELECT * FROM EMP
+WHERE HIREDATE > TO_DATE('1981-06-01', 'YYYY-MM-DD');
 
 --퀴즈2
 -- 월과 요일을 각각 'MM월', '요일' 형식으로 출력 해보기
+-- 날짜에서 -> 문자열 타입으로 변환
+SELECT TO_CHAR(SYSDATE, 'MM"월"') AS "월",
+TO_CHAR(SYSDATE, 'DAY') AS "요일"
+FROM DUAL;
 
 --퀴즈3 
--- 숫자 문자열을 '1,200'을 숫자로 변환하여 300을 더한 값 출력 해보기 
+-- 숫자 문자열을 '1,200'을 숫자로 변환하여 
+-- 300을 더한 값 출력 해보기 
+SELECT TO_NUMBER('1,200', '9,999') + 300 
+AS "결괏값" FROM DUAL;
 
 
 
