@@ -92,3 +92,24 @@ TRIM(LEADING FROM '   ORACLE   '),
 TRIM(TRAILING FROM '   ORACLE   ')
 FROM DUAL;
 
+-- 검색, %am%
+-- 현재, emp 테이블의 데이터 내용은 모두 대문자. 
+-- 만약, 나중에 데이터가 대 , 소문자가 섞여 있는 상황
+-- 사용자 검색을 단순 소문자로 만 했을 경우, 
+-- 검색의 결과는 대소문자 상관없이 결과에 나오게 하기. 
+--1, 정확히 일치하는 것만 검색
+SELECT ENAME FROM EMP
+WHERE LOWER(ENAME) = LOWER('scott');
+
+--2, am 포함하는 키워드 찾기. 
+SELECT ENAME FROM EMP 
+WHERE ENAME LIKE UPPER('%am%');
+
+--3,기존 데이터를 모두 소문자로 변경후 
+-- am 포함하는 키워드 찾기. 
+SELECT ENAME FROM EMP 
+WHERE LOWER(ENAME) LIKE LOWER('%Am%');
+
+
+
+
