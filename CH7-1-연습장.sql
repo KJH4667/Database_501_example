@@ -26,13 +26,19 @@ WHERE DEPTNO = 30;
 --퀴즈1 
 -- 부서번호가 10번인 사원들의 최대, 최소 급여를 출력하시오.  
 -- 별칭 : 최대 급여, 최소 급여
+SELECT MAX(SAL) AS "최대 급여",
+MIN(SAL) AS "최소 급여"
+FROM EMP WHERE DEPTNO = 10;
 
 --퀴즈2
 -- 부서번호가 20번인 사원의 입사일 중 가장 오래된 날짜를 구하시오.  
--- 별칭 : 가장 오래 일한 날짜
+-- 별칭 : 가장 오래된 날짜
+SELECT MIN(HIREDATE) AS "가장 오래된 날짜" FROM EMP 
+WHERE DEPTNO = 20;
 
 --퀴즈3
 -- 중복된 급여를 제외한 평균 급여를 출력하시오. 
 -- DISTINCT 힌트 
 -- 별칭 : 평균 급여
-
+SELECT AVG(DISTINCT SAL) AS "중복 X 평균 급여" FROM EMP;
+SELECT TRUNC(AVG(SAL)) AS "중복 O 평균 급여" FROM EMP;
