@@ -31,3 +31,7 @@ AS "10주년" FROM EMP;
 
 --퀴즈3 
 -- 사원의 입사일을 월 단위로 반올림 해서 출력 해보기.
+
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS';
+SELECT SYSDATE FROM DUAL;
+
