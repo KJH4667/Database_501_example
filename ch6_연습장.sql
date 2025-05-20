@@ -167,3 +167,4 @@ SELECT EMPNO, MOD(EMPNO, 4) AS "4로 나눈 나머지"
 FROM EMP;
 
 
+
