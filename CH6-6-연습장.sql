@@ -17,5 +17,7 @@ SELECT * FROM EMP;
 
 -- 전체 급여 계산해보기, NVL 이용해서,  NULL 인 경우, 0으로 해서 계산 해보기 
 -- 별칭 전체 급여
-
+SELECT ENAME, NVL2(COMM, 'O','X') AS "수당 여부",
+SAL * 12 + NVL(COMM,0) AS "전체 급여"
+FROM EMP;
 
