@@ -136,6 +136,37 @@ UNPIVOT (
 -- EMP 테이블에서 SAL, COMM 을 UNPIVOT 한 후, 
 -- 항목별 (급여/커미션) 전체 합계를 구하기. 
 -- 별칭 : 항목, 총합계
+SELECT ENAME, SAL, COMM FROM EMP;
+-- 기존 테이블 , 가로로 
+-- ENAME  SAL   COMM 
+-- KING   5000  NULL
+
+-- UNPIVOT 을 적용하면 데이터, 
+-- 변환 후, 
+-- ENAME   항목(새로 만든 임의의 컬럼)  금액(임의 만듦)
+-- KING    SAL(별칭 : 급여)           5000
+-- KING    COMM(별칭 : 수당)           NULL
+
+-- 풀이 
+SELECT 항목, SUM(금액) AS "총합계"
+FROM (
+-- UNPIVOT이 되는 되상 컬럼
+-- 원래 , 가로로 배치된 데이터, 
+-- 이 데이터 들을 변환 해서, 세로로 배치할 계획
+    SELECT SAL, COMM FROM EMP
+)
+UNPIVOT (
+    금액 FOR 항목 IN (
+    SAL AS '급여',
+    COMM AS '수당'
+    )
+)
+GROUP BY 항목;
+
+
+
+
+
 
 
 
