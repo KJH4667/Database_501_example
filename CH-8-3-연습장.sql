@@ -1,0 +1,57 @@
+-- 표준 SQL 99 이용해서, 조인의 표현식 연습 
+
+기본 개념 비교  
+
+-- | 문법 | 설명 | 특징 |
+--|------|------|------|
+-- | `NATURAL JOIN` | 공통 열 이름 자동 조인 | 간결하지만 제어 불가 |
+-- | `JOIN ... USING(col)` | 지정 열 기준 조인 | 동일 열 이름만 사용 가능 |
+-- | `JOIN ... ON(cond)` | 조건 지정 조인 | 가장 유연하고 범용 |
+-- | `LEFT/RIGHT/FULL OUTER JOIN` | 외부 조인 구현 | NULL 포함된 결과도 출력 |
+
+-- 기본 문법 예시 
+-- NATURAL JOIN 
+SELECT * FROM EMP NATURAL JOIN DEPT;
+
+-- JOING USING 
+SELECT ENAME, DNAME 
+FROM EMP JOIN DEPT USING(DEPTNO);
+
+-- JOIN ON  ,가장 많이 사용하는 포맷 형식
+SELECT ENAME, DNAME 
+FROM EMP JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO;
+
+-- LEFT OUTER JOIN, 왼쪽 외부 조인 
+SELECT ENAME, DNAME 
+FROM EMP LEFT OUTER JOIN DEPT 
+ON EMP.DEPTNO = DEPT.DEPTNO;
+
+-- RIGHT OUTER JOIN, 오른쪽 외부 조인 
+SELECT ENAME, DNAME 
+FROM EMP RIGHT OUTER JOIN DEPT 
+ON EMP.DEPTNO = DEPT.DEPTNO;
+
+-- FULL OUTER JOIN, 양쪽 외부 조인 
+SELECT ENAME, DNAME 
+FROM EMP FULL OUTER JOIN DEPT 
+ON EMP.DEPTNO = DEPT.DEPTNO;
+
+-- 3개 이상 테이블 조인 
+SELECT EMP.ENAME, DEPT.DNAME, LOCATION.LOC_ID
+FROM EMP 
+JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO 
+JOIN LOCATION ON DEPT.DEPTNO = LOCATION.LOC_ID;
+
+SELECT * FROM DEPT;
+SELECT * FROM LOCATION;
+
+--임시 테이블 생성 
+CREATE TABLE LOCATION (
+    LOC_ID NUMBER PRIMARY KEY,
+    LOC VARCHAR2(50)
+);
+
+
+
+
+
