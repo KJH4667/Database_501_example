@@ -73,7 +73,7 @@ FOR JOB IN ('CLERK' AS "사무직",
 
 -- 위에서 PIVOT 된 결과를 다시 행으로 변환 
 -- 컬럼명 한글로 하면 가능하다고, 검토
-SELECT DEPTNO, JOB, SUM(SAL)
+SELECT DEPTNO, JOB, SUM(SAL) AS "총급여"
 FROM ( 
 SELECT * 
     FROM ( 
@@ -87,9 +87,13 @@ SELECT *
     )
 )
 UNPIVOT (
-    SAL FOR JOB IN (CLERK, MANAGER, ANALYST)
-);
-
+    SAL FOR JOB IN (
+    "사무직" AS 'CLERK', 
+    "관리자" AS 'MANAGER',
+    "분석가" AS 'ANALYST')
+)
+GROUP BY DEPTNO, JOB
+ORDER BY DEPTNO, JOB;
 
 
 -- UNPIVOT 간단한 예시 
