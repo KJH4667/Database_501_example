@@ -147,7 +147,7 @@ SELECT ENAME, SAL, COMM FROM EMP;
 -- KING    SAL(별칭 : 급여)           5000
 -- KING    COMM(별칭 : 수당)           NULL
 
--- 풀이 
+-- 풀이 1
 SELECT 항목, SUM(금액) AS "총합계"
 FROM (
 -- UNPIVOT이 되는 되상 컬럼
@@ -163,7 +163,21 @@ UNPIVOT (
 )
 GROUP BY 항목;
 
-
+-- 풀이2 
+SELECT ENAME ,항목, SUM(금액) AS "총합계"
+FROM (
+-- UNPIVOT이 되는 되상 컬럼
+-- 원래 , 가로로 배치된 데이터, 
+-- 이 데이터 들을 변환 해서, 세로로 배치할 계획
+    SELECT ENAME, SAL, COMM FROM EMP
+)
+UNPIVOT (
+    금액 FOR 항목 IN (
+    SAL AS '급여',
+    COMM AS '수당'
+    )
+)
+GROUP BY ENAME,항목;
 
 
 
