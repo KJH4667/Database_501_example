@@ -53,7 +53,47 @@ GROUP BY ROLLUP(DEPTNO, JOB);
 -- FOR 피벗컬럼 IN (값1 AS 별칭1, 값2 AS 별칭2,...)
 --);
 
+-- 직책별 급여 합계를 부서별로 , 가로 형태로 전환
+SELECT * 
+FROM ( SELECT DEPTNO, JOB, SAL FROM EMP)
+PIVOT(
+SUM(SAL)
+FOR JOB IN ('CLERK' AS "사무직",
+'MANAGER' AS "관리자", 'ANALYST' AS "분석가")
+);
 
+-- UNPIVOT 
+-- 열 데이터를 다시 행으로 전환  
+-- 기본 문법
+-- SELECT * 
+-- FROM ( SELECT  기준컬럼, 열1, 열2,... FROM 테이블명)
+-- UNPIVOT (
+-- 값 컬럼 FOR 피벗 커럼 IN (열1, 열2,...)
+--);
+
+-- 위에서 PIVOT 된 결과를 다시 행으로 변환 
+-- 컬럼명 한글로 하면 가능하다고, 검토
+SELECT DEPTNO, JOB, SUM(SAL)
+FROM ( 
+SELECT * 
+    FROM ( 
+    SELECT DEPTNO, JOB, SAL
+    FROM EMP
+    )
+    PIVOT(
+    SUM(SAL) FOR JOB IN 
+    ('CLERK' AS "사무직", 'MANAGER' AS "관리자",
+    'ANALYST' AS "분석가")
+    )
+)
+UNPIVOT (
+    SAL FOR JOB IN (CLERK, MANAGER, ANALYST)
+);
+
+
+
+-- UNPIVOT 간단한 예시 
+-- 열 기준의 급여 데이터를 연도 기준 행으로 전환하기. 
 
 
 
