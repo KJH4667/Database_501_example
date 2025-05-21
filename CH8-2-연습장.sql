@@ -55,11 +55,23 @@ WHERE E.MGR(+) = M.EMPNO;
 --퀴즈 1,
 -- EMP와 DEPT 테이블에서 부서가 없는 사원도 포함해 
 -- 사원명과 부서명을 출력하시오 (왼쪽 외부 조인)
-
+SELECT E.ENAME, D.DNAME
+FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO(+) ;
 
 --퀴즈 2
 -- 오른쪽 외부 조인을 사용하여 부서가 있지만, 
 -- 사원이 없는 부서를 포함해서 출력하시오. 
+SELECT E.ENAME, D.DNAME
+FROM EMP E, DEPT D
+WHERE E.DEPTNO(+) = D.DEPTNO ;
 
 --퀴즈 3
 -- WHERE 절에 추가 조건(`job = 'CLERK'`)을 넣고 부서별 사원 출력  
+SELECT E.ENAME,E.JOB, D.DNAME
+FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO 
+AND E.JOB = 'CLERK';
+
+
+
