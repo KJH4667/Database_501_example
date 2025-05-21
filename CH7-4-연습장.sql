@@ -86,6 +86,7 @@ SELECT *
     'ANALYST' AS "분석가")
     )
 )
+-- 위에서 만든, 가로로 변환한 예를 다시, 세로 방향으로 변환. 
 UNPIVOT (
     SAL FOR JOB IN (
     "사무직" AS 'CLERK', 
@@ -98,7 +99,43 @@ ORDER BY DEPTNO, JOB;
 
 -- UNPIVOT 간단한 예시 
 -- 열 기준의 급여 데이터를 연도 기준 행으로 전환하기. 
+-- 실제로 출력이 되는 컬럼은 
+-- EMPNO, ENAME, 항목, 금액
 
+SELECT EMPNO, ENAME, 항목, 금액 
+FROM (
+    SELECT EMPNO, ENAME, SAL, COMM FROM EMP
+)
+-- UNPIVOT : 열 -> 행으로 변환하는 절
+UNPIVOT (
+    -- 실제 값이 들어갈 컬러명
+    금액 
+    -- 어떤 항목인 구분하는 컬럼명, 
+    -- (예시:급여, 커미션)
+    FOR 항목 
+    IN (
+    -- SAL, COMM UNPIVOT의 대상이 되는 열
+    -- SAL 컬럼을 급여이라는 별칭 변환
+        SAL AS '급여',
+    -- COMM 컬럼을 수당이라는 별칭 변환
+        COMM AS '수당'
+    )
+);
+
+
+-- UNPIVOT 
+-- 열 데이터를 다시 행으로 전환  
+-- 기본 문법
+-- SELECT * 
+-- FROM ( SELECT  기준컬럼, 열1, 열2,... FROM 테이블명)
+-- UNPIVOT (
+-- 값 컬럼 FOR 피벗 커럼 IN (열1, 열2,...)
+--);
+
+--퀴즈 1
+-- EMP 테이블에서 SAL, COMM 을 UNPIVOT 한 후, 
+-- 항목별 (급여/커미션) 전체 합계를 구하기. 
+-- 별칭 : 항목, 총합계
 
 
 
