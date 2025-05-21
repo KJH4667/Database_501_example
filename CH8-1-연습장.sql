@@ -21,14 +21,24 @@ AND E.DEPTNO = 30;
 
 
 --퀴즈 1
--- EMP 와 DEPT 테이블 조인하여 관리자(MANAGER)직무를 가진 사원의 이름과 
+-- EMP 와 DEPT 테이블 조인하여 
+-- 관리자(MANAGER)직무를 가진 사원의 이름과 
 -- 부서명 출력 해보기.
 -- 별칭 : 사원명, 부서명 
+SELECT E.ENAME,E.JOB, D.DNAME
+FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO 
+AND E.JOB = 'MANAGER';
+
 
 --퀴즈 2, 힌트 : 같은 테이블을 활용해보기.
 -- 각 사원의 이름과 그 사원의 직속 상관의 이름을 함께 출력해보기. 
 -- 별칭 : 사원명, 직속 상관명
 
-
+SELECT E.ENAME AS "사원명", 
+E.MGR AS "직속 상관번호",
+M.ENAME AS "직속 상관명"
+FROM EMP E, EMP M
+WHERE E.MGR = M.EMPNO
 
 
