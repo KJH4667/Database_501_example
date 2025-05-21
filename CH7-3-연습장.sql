@@ -19,7 +19,7 @@ HAVING AVG(SAL) >= 2000;
 -- 사원수가 3명 이상인 직책 그룹만 출력 
 SELECT JOB, COUNT(*) FROM EMP
 GROUP BY JOB
-HAVING COUNT(*) >= 3;
+HAVING COUNT(*) >= 1;
 
 -- WHERE 절과 HAVING 절 같이 사용해보기. 
 SELECT * FROM EMP WHERE JOB = 'SALESMAN';
@@ -42,15 +42,23 @@ HAVING AVG(SAL) > 1000;
 --퀴즈1 
 -- 평균 급여가 2500 이상인 부서의 부서번호와 평균 급여를 출력하시오. 
 -- 별칭 : 평균 급여
-
+SELECT DEPTNO, AVG(SAL) FROM EMP
+GROUP BY DEPTNO
+HAVING AVG(SAL) >= 2500;
 --퀴즈2
 -- 부서별 사원 수가 4명 이상인 부서만 출력하시오.  
 -- 별칭 : 사원수 
-
+SELECT DEPTNO, COUNT(*) FROM EMP
+GROUP BY DEPTNO 
+HAVING COUNT(*) >= 4;
 --퀴즈3
 -- `WHERE` 절을 사용해 부서번호가 10, 20번만 필터링하고, 
--- 그 중 평균 급여가 3000 이상인 부서만 출력하시오.  
+-- 그 중 평균 급여가 2000 이상인 부서만 출력하시오.  
 -- 별칭 : 평균 급여
+SELECT DEPTNO, AVG(SAL) FROM EMP
+WHERE DEPTNO IN (10, 20)
+GROUP BY DEPTNO 
+HAVING AVG(SAL) >= 2000;
 
 
 

@@ -6,7 +6,7 @@
 
 -- 기본 예제 확인. 
 -- 부서별 , 평균 급여 
-SELECT deptno, AVG(sal) FROM emp 
+SELECT deptno, AVG(sal), SUM(SAL), MAX(SAL), MIN(SAL), COUNT(SAL) FROM emp 
 GROUP BY deptno;
 
 -- 직책별 최대 급여 
