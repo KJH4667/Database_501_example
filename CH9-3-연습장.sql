@@ -70,9 +70,10 @@ SELECT * FROM EMP;
 
 -- 퀴즈1, 
 -- 30번 부서의 최소 급여보다 많은 급여를 받는 사원 출력  
+SELECT MIN(SAL) FROM EMP WHERE DEPTNO = 30;
 SELECT ENAME, SAL FROM EMP 
 WHERE SAL > ALL (
-    SELECT SAL FROM EMP WHERE DEPTNO = 30
+    SELECT MIN(SAL) FROM EMP WHERE DEPTNO = 30
 );
 -- 퀴즈2, 
 -- 30번 부서의 최대 급여보다 낮은 급여를 받는 사원 출력  
