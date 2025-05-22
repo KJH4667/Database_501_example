@@ -39,12 +39,31 @@ JOIN (
 -- 지금은 성능 고려하지 말고, 서브 쿼리 연습으로 접근하기
 -- 퀴즈1, 
 -- 각 사원의 급여, 부서 평균 급여, 전체 평균 급여를 함께 출력하시오.
- 
+SELECT ENAME, SAL, DEPTNO , 
+(SELECT AVG(SAL) FROM EMP WHERE DEPTNO = E.DEPTNO) AS "부서평균",
+(SELECT AVG(SAL) FROM EMP ) AS "전체 평균"
+FROM EMP E;
 -- 퀴즈2, 
 -- 각 사원의 이름, 직책, 부서 위치를 함께 출력하시오.  
+SELECT E.ENAME, E.JOB, 
+(SELECT D.LOC FROM DEPT D WHERE D.DEPTNO = E.DEPTNO) AS LOCATION
+FROM EMP E;
   
 -- 퀴즈3, 
 -- 각 사원의 이름, 급여, 같은 부서의 최대 급여를 함께 출력하시오.  
+SELECT ENAME, SAL, DEPTNO,
+(SELECT MAX(SAL) FROM EMP WHERE DEPTNO = E.DEPTNO) AS "최대급여"
+FROM EMP E;
+
+
+
+
+
+
+
+
+
+
 
 
 
