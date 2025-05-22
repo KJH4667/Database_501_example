@@ -29,13 +29,23 @@ WHERE HIREDATE = TRUNC(SYSDATE);
 
 -- 퀴즈1, 
 -- 부서번호 10번 사원의 최대 급여보다 높은 급여를 가진 사원을 출력하시오. 
- 
+SELECT MAX(SAL) FROM EMP WHERE DEPTNO = 10;
+SELECT ENAME, SAL FROM EMP 
+WHERE SAL >=
+(SELECT MAX(SAL) FROM EMP WHERE DEPTNO = 10);
+
+
 -- 퀴즈2, 
 -- 오늘 날짜보다 이전에 입사한 사원을 출력하시오. 
+SELECT ENAME, HIREDATE FROM EMP 
+WHERE HIREDATE < TRUNC(SYSDATE);
   
 -- 퀴즈3, 
 -- 평균 급여보다 낮은 급여를 받는 사원을 출력하시오.  
-
+SELECT ENAME, SAL FROM EMP 
+WHERE SAL < (
+    SELECT AVG(SAL) FROM EMP
+);
 
 
 
