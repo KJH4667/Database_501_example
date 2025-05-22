@@ -66,14 +66,35 @@ SELECT DEPTNO, MAX(SAL) FROM EMP
 GROUP BY DEPTNO ;
 SELECT * FROM EMP;
 
+
+
 -- 퀴즈1, 
 -- 30번 부서의 최소 급여보다 많은 급여를 받는 사원 출력  
- 
+SELECT ENAME, SAL FROM EMP 
+WHERE SAL > ALL (
+    SELECT SAL FROM EMP WHERE DEPTNO = 30
+);
 -- 퀴즈2, 
 -- 30번 부서의 최대 급여보다 낮은 급여를 받는 사원 출력  
-  
+SELECT ENAME, SAL  FROM EMP 
+WHERE SAL < (
+SELECT MAX(SAL) FROM EMP WHERE DEPTNO = 30
+);
 -- 퀴즈3, 
 -- EMP 테이블에 소속된 사원이 있는 부서의 이름을 출력 (`EXISTS`) 
+SELECT DNAME FROM DEPT; -- 순서1,  5개의 부서명 중 1개만 이용
+SELECT DNAME FROM DEPT D 
+WHERE EXISTS ( -- 순서2, ACCOUNTING 한개의 데이터에 대해서 
+SELECT * FROM EMP E  -- 순서3, EMP, DEPT 조인한 테이블
+WHERE D.DEPTNO = E.DEPTNO  --순서4, 조인한 테이블의 결과 14개
+-- 순서5, ACCOUNTING 데이터 하나에, 
+-- 서브쿼리의 16개의 데이터를 비교
+-- 결론, 총 몇번을 비교하나요? 80번 비교.
+-- 서브쿼리의 빈번한 사용은 성능상 좋은 선택은 아니다.
+-- 방법) 인덱스 많이 사용하고, 조인을 사용하기. 
+-- 쿼리 조회시, 외주, GPT 작업하면, 
+-- 반드시 해당 쿼리의 성능 체크도 같이하기. !!!
+);
 
 
 
