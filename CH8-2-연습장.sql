@@ -21,6 +21,7 @@ SELECT
 E.EMPNO AS "EMP 사원번호", 
 E.ENAME AS "EMP 사원명", 
 E.MGR AS "EMP직속 상관번호",
+M.EMPNO AS "EMP2 상관의 번호",
 M.ENAME AS "EMP2직속 상관명"
 FROM EMP E, EMP M
 WHERE E.MGR = M.EMPNO;
