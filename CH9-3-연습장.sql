@@ -1,4 +1,4 @@
--- 실행 결과가 여러 객인 다중행 서브쿼리 
+-- 실행 결과가 여러개인 다중행 서브쿼리 
 
 -- 기본 문법 
 -- IN 
@@ -6,6 +6,7 @@
 -- DALLAS 에 위치한 부서의 부서번호 중 
 -- 하나에 속한 사원의 이름을 출력 예시, 
 SELECT * FROM DEPT ;
+SELECT DEPTNO FROM DEPT WHERE LOC = 'DALLAS';
 SELECT ENAME FROM EMP 
 WHERE DEPTNO IN (
     SELECT DEPTNO FROM DEPT WHERE LOC = 'DALLAS'
@@ -20,8 +21,10 @@ WHERE DEPTNO IN (
 -- ANY 는 최소 하나의 조건만 만족해도 참이 되는 경우 
 -- > , 또는 < 와 같이 비교 연산자와 함께 사용되고 
 -- 최소/최대 비교를 하는 경우도 유연하게 사용이됨.
+  SELECT SAL FROM EMP WHERE DEPTNO = 30;
 SELECT ENAME FROM EMP 
 WHERE SAL < ANY (
+    -- 서브쿼리 결과 6개, 최소 950 부터, 2850 까지
     SELECT SAL FROM EMP WHERE DEPTNO = 30
 );
 
@@ -31,9 +34,10 @@ WHERE SAL < ANY (
 -- 이름 출력
 -- ALL 전부 만족해야 참이 되는 조건, 
 -- 가장 큰 값보다 더 커야함. 
--- MAX()와 비슷한 족건으로 사용한다. 
+-- MAX()와 비슷한 조건으로 사용한다. 
 SELECT ENAME FROM EMP 
 WHERE SAL > ALL (
+    -- 서브쿼리 결과 6개, 최소 950 부터, 2850 까지
     SELECT SAL FROM EMP WHERE DEPTNO = 30
 );
 
@@ -43,11 +47,13 @@ WHERE SAL > ALL (
 -- 매우 빠른 조건에 존재 확인에 유리(데이터 확인 아님)
 -- 서브쿼리의 실제 데이터가 아니라 존재 유무만 확인함. 
 -- 반환값이 있으면 무조건 TRUE
-SELECT DNAME FROM DEPT D 
+SELECT DEPTNO, DNAME FROM DEPT D 
 WHERE EXISTS (
  SELECT * FROM E
  WHERE E.DEPTNO = D.DEPTNO
 );
+SELECT * FROM EMP;
+SELECT * FROM DEPT;
 
 -- 30번 부서 사원들과 동일한 급여를 받는 사원 
 SELECT ENAME, SAL FROM EMP 

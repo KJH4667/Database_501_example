@@ -14,12 +14,19 @@
 
 -- 예시
 -- 열 지정 INSERT 
+DESC DEPT;
 insert into dept (dname, deptno, loc) values ('개발부2', 70, '서울2' );
 select *  from dept;
+-- 10, ACCOUNTING, NEW YORK
 -- 열 생략 INSERT
 insert into dept values ( 80,'개발부3','서울3' );
 commit;
+
 -- SYSDATE 삽입
+-- 테이블에 모든 데이터를 추가 할 필요는 없다. 
+-- 단, PK (제약조건 , NOT NULL + UNIQUE) 제약조건이 있는 열은 반드시 입력해야 한다.
+-- 또는 NOT NULL 항목은 반드시 입력해야 한다.
+-- empno : PK임. 
 INSERT INTO EMP (empno, ename, hiredate) VALUES ( 1000, '홍길동', SYSDATE );
 SELECT * FROM EMP;
 
@@ -59,3 +66,7 @@ SELECT * FROM EMP WHERE deptno = 30;
 SELECT * FROM EMP_TEMP_30;
 -- EMP_TEMP_40 테이블 확인
 SELECT * FROM EMP_TEMP_40;
+COMMIT;
+-- 기본은 DML : INSERT, UPDATE, DELETE 후, 반드시 적용하기. COMMIT;
+
+

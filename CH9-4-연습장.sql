@@ -4,6 +4,10 @@
 -- 부서번호가 10번인 사원들의 (직무, 부서번호) 조합과 
 -- 동일한 (직무, 부서번호)를 가진 사원을 
 -- EMP 테이블에서 조회
+SELECT JOB, DEPTNO FROM EMP 
+    WHERE DEPTNO = 10;
+-- MANAGER, 10
+-- PRESIDENT, 10
 SELECT ENAME, JOB, DEPTNO FROM EMP 
 WHERE (JOB,DEPTNO) IN (
     SELECT JOB, DEPTNO FROM EMP 
@@ -18,8 +22,13 @@ WHERE (JOB,DEPTNO) IN (
 );
 
 -- (사원번호, 부서번호) 특정 목록과 일치하는 데이터 출력 
+SELECT EMPNO,DEPTNO FROM EMP 
+    WHERE SAL > 2000;
 SELECT EMPNO, ENAME FROM EMP 
 WHERE (EMPNO, DEPTNO) IN (
+    -- 샘플 8개중에서 2개 데이터
+--     7698, 30
+-- 7839, 10
     SELECT EMPNO,DEPTNO FROM EMP 
     WHERE SAL > 2000
 );
