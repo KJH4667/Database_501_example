@@ -27,11 +27,17 @@ WHERE DEPTNO = (
 
 -- 먼저는 연습용, 
 -- DEPT -> DEPT_TEMP2 테이블 복사해보기
+CREATE TABLE DEPT_TEMP2 AS SELECT * FROM DEPT;
+SELECT * FROM DEPT_TEMP2;
 -- 퀴즈1, 
 -- DEPT_TEMP2 테이블에서 부서번호가 20인 행의 지역을 'JEJU'로 수정하시오.  
- 
+ UPDATE DEPT_TEMP2 SET LOC = 'JEJU' WHERE DEPTNO = 20;
 -- 퀴즈2, 
 -- DEPT_TEMP2 테이블의 전체 지역을 'SEOUL'로 변경하시오.  
-  
+  UPDATE DEPT_TEMP2 SET LOC = 'SEOUL';
+
+-- EMP_COPY 테이블에서 연습하기
 -- 퀴즈3, 
 -- 직책이 'MANAGER'인 사원의 급여를 5000으로 일괄 수정하시오.  
+UPDATE EMP_COPY SET SAL = 5000 WHERE JOB = 'MANAGER';
+SELECT * FROM EMP_COPY ;
