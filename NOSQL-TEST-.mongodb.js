@@ -2,7 +2,9 @@ use('test')// 기본 데이터 베이스, test 사용함. 생략시 기본 test 
 
 //테이블 생성, 
 // 테이블 생성 후, 데이터 추가하는 기본 문법 :insertOne
-// db.[테이블명].insertOne({
+
+//SQL 사용하는 테이블, NOSQL 컬렉션으로 사용함. 
+// db.[컬렉션명].insertOne({
 //     [컬럼명]:[값],
 //     name: '홍길동',
 //     age: 20,
@@ -31,3 +33,26 @@ db.users.updateOne(
 // 삭제
 // db.[테이블명].deleteOne({조건})  
 db.users.deleteOne({ name: '홍길동' }) // 조건에 맞는 첫 번째 문서 삭제
+
+
+// Capped Collection, 컬렉션 = 테이블 
+// 컬렉션이 용량 초과하게 되면, 오래된 테이터 부터 차례대로 삭제하는 기능. 
+// db.createCollection('컬렉션명', { capped: true, size: [용량] }
+//  용량이 5KB인 컬렉션 생성, 부가 기능으로 용량 초과시 오래된 데이터 삭제
+db.createCollection('logs', { capped: true, size : 5000 }) // 5KB
+// 샘플 데이터 추가, 반복문을 이용해서, 샘플로 1000개 추가
+for (let i = 2000; i < 3000; i++) {
+    db.logs.insertOne({
+        message: `로그 메시지 ${i}`,
+        timestamp: new Date() // 오라클로 표현 sysdate() 같음, 현재 날짜
+    })
+}
+db.logs.find() // 전체 조회
+
+db.createCollection('logs2', { capped: true, size : 5000 }) // 5KB
+for (let i = 1000; i < 2000; i++) {
+    db.logs2.insertOne({
+        message: `로그 메시지 ${i}`,
+        timestamp: new Date() // 오라클로 표현 sysdate() 같음, 현재 날짜
+    })
+}
