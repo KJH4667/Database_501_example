@@ -63,3 +63,38 @@ SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000';
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 -- |*  2 |   INDEX RANGE SCAN          | EMP_INDEX_TEST_ENAME_IDX |   401 |       |     1   (0)| 00:00:01 |
 --------------------------------------------------------------------
+
+-- 복합키 예시 
+-- 순서, JOB, DEPTNO 컬럼의 순서로 인덱스 생성, 
+-- 전 , 후 성능 비교 
+---------------------------------------------------------------------------------
+-- 인덱스 생성 전 
+SELECT * FROM EMP_INDEX_TEST WHERE JOB = 'CLERK' AND DEPTNO = 10;
+-- 성능 비교 (실행계획 확인)
+EXPLAIN PLAN FOR
+SELECT * FROM EMP_INDEX_TEST WHERE JOB = 'CLERK' AND DEPTNO = 10;
+-- 실행계획 확인
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+-- 결과 
+--| Id  | Operation         | Name           | Rows  | Bytes | Cost (%CPU)| Time     |
+--|*  1 |  TABLE ACCESS FULL| EMP_INDEX_TEST |  4993 |   550K|   147   (3)| 00:00:02 |
+---------------------------------------------------------------------------------
+-- 인덱스 생성
+CREATE INDEX EMP_INDEX_TEST_JOB_DEPTNO_IDX ON EMP_INDEX_TEST(JOB, DEPTNO);
+-- 인덱스 조회 
+SELECT * FROM USER_INDEXES WHERE TABLE_NAME = 'EMP_INDEX_TEST';
+
+SELECT * FROM EMP_INDEX_TEST WHERE JOB = 'CLERK' AND DEPTNO = 10;
+-- 성능 비교 (실행계획 확인)
+EXPLAIN PLAN FOR
+SELECT * FROM EMP_INDEX_TEST WHERE JOB = 'CLERK' AND DEPTNO = 10;
+-- 실행계획 확인
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+-- 결과 
+--| Id  | Operation         | Name           | Rows  | Bytes | Cost (%CPU)| Time     |
+
+
+
+
+
+
