@@ -40,4 +40,23 @@ CREATE USER LSY IDENTIFIED BY 1234; -- 새 사용자 생성
 -- 기본 접속 권한만 추가 
 GRANT CREATE SESSION TO LSY; -- 세션 생성 권한 부여
 
+-- 사용자 조회 
+SELECT * FROM ALL_USERS WHERE USERNAME = 'LSY'; -- 새 사용자 확인
+
 -- 세션 기존 SCOTT 계정 -> LSY 계정으로 변경 
+-- MY_EMP 동의어를 이용한 조회
+SELECT * FROM MY_EMP; -- LSY 계정에서 SCOTT.EMP 테이블 조회
+-- -- 동의어 삭제
+SELECT * FROM DEPT;
+
+===========================================================
+-- 퀴즈1, EMP, DEPT 조인 고려하기
+-- 동의어를 활용해서 부서명이 ‘ACCOUNTING’인 사원 이름과 직무를 출력하라.
+ 
+-- 퀴즈2, EMP, SALGRADE 조인 고려하기 
+-- 급여 등급(GRADE) 3에 해당하는 사원 목록 출력
+  
+-- 퀴즈3, 자체 조인 및, SALG RADE 테이블 까지 조인을 고려하기
+-- 관리자 이름과 급여 등급을 동의어 기반으로 출력
+
+===========================================================
