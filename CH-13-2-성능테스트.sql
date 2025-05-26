@@ -92,6 +92,27 @@ SELECT * FROM EMP_INDEX_TEST WHERE JOB = 'CLERK' AND DEPTNO = 10;
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 -- 결과 
 --| Id  | Operation         | Name           | Rows  | Bytes | Cost (%CPU)| Time     |
+--|*  1 |  TABLE ACCESS FULL| EMP_INDEX_TEST |  4993 |   550K|   147   (3)| 00:00:02 |
+-- 인덱스 검색이 아닌 전체 검색이 나온 이유는 
+
+SELECT * FROM EMP_INDEX_TEST WHERE job = 'CLERK';
+SELECT COUNT(*) FROM emp_index_test WHERE job = 'CLERK';
+---------------------------------------------------------------------------------
+-- 복합키 인덱스 예시2 
+-- 기존 단일키 인덱스 삭제
+DROP INDEX EMP_INDEX_TEST_ENAME_IDX;
+-- 기존 복합키 인덱스 삭제 
+DROP INDEX EMP_INDEX_TEST_JOB_DEPTNO_IDX;
+-- 인덱스 조회 
+SELECT * FROM USER_INDEXES WHERE TABLE_NAME = 'EMP_INDEX_TEST';
+-- ENAME, JOB 컬럼의 순서로 인덱스 생성,
+SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000' AND JOB = 'CLERK';
+-- 성능 비교 (실행계획 확인)
+EXPLAIN PLAN FOR 
+SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000' AND JOB = 'CLERK';
+-- 실행계획 확인
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
 
 
 
