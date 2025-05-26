@@ -106,15 +106,33 @@ DROP INDEX EMP_INDEX_TEST_JOB_DEPTNO_IDX;
 -- 인덱스 조회 
 SELECT * FROM USER_INDEXES WHERE TABLE_NAME = 'EMP_INDEX_TEST';
 -- ENAME, JOB 컬럼의 순서로 인덱스 생성,
+-- 인덱스 생성 전
 SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000' AND JOB = 'CLERK';
 -- 성능 비교 (실행계획 확인)
 EXPLAIN PLAN FOR 
 SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000' AND JOB = 'CLERK';
 -- 실행계획 확인
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+-- 결과
+--| Id  | Operation         | Name           | Rows  | Bytes | Cost (%CPU)| Time     |
+--|*  1 |  TABLE ACCESS FULL| EMP_INDEX_TEST |    10 |  1130 |   146   (2)| 00:00:02 |
 
+-------------------------------------------------------------------------------------------------
 
+-- 인덱스 생성 후
+CREATE INDEX EMP_INDEX_TEST_ENAME_JOB_IDX ON EMP_INDEX_TEST(ENAME, JOB);
+-- 인덱스 조회
+SELECT * FROM USER_INDEXES WHERE TABLE_NAME = 'EMP_INDEX_TEST';
 
+SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000' AND JOB = 'CLERK';
+-- 성능 비교 (실행계획 확인)
+EXPLAIN PLAN FOR 
+SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000' AND JOB = 'CLERK';
+-- 실행계획 확인
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+-- 결과
+--| Id  | Operation         | Name                          | Rows  | Bytes | Cost (%CPU)| Time     |
+--|*  2 |   INDEX RANGE SCAN| EMP_INDEX_TEST_ENAME_JOB_IDX |     1 |       |     1   (0)| 00:00:01 |
 
 
 
