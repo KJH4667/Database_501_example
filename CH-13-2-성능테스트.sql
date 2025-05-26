@@ -36,7 +36,30 @@ BEGIN
   COMMIT;
 END;
 
+SELECT * FROM EMP_INDEX_TEST;
 
+-- 기본 EMP_INDEX_TEST , 자동 생성된 인덱스, EMPNO 로 생성 조회, 
+SELECT * FROM USER_INDEXES WHERE TABLE_NAME = 'EMP_INDEX_TEST';
 
+--------------------------------------------------------------------
+-- 인덱스 없이 실행 
+SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000';
 
+-- 성능 비교 (실행계획 확인)
+EXPLAIN PLAN FOR
+SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000';
+-- 실행계획 확인
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+-- 인덱스 생성
+CREATE INDEX EMP_INDEX_TEST_ENAME_IDX ON EMP_INDEX_TEST(ENAME);
+SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000';
 
+-- 성능 비교 (실행계획 확인)
+EXPLAIN PLAN FOR
+SELECT * FROM EMP_INDEX_TEST WHERE ENAME = 'USER50000';
+-- 실행계획 확인
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+-- |*  2 |   INDEX RANGE SCAN          | EMP_INDEX_TEST_ENAME_IDX |   401 |       |     1   (0)| 00:00:01 |
+--------------------------------------------------------------------
