@@ -12,10 +12,10 @@
 -- | CYCLE | MAX 도달 시 초기화 여부 설정 |
 
 -- 시퀀스 생성 
-CREATE SEQUENCE EMP_SEQ
+CREATE SEQUENCE EMP_SEQ -- 시퀀스 이름 , 의미 있는 이름으로 지정
 START WITH 1
 INCREMENT BY 1
-MAXVALUE 9999
+MAXVALUE 999999999999
 NOCYCLE;
 
 -- 테스트 할 빈 테이블 복사 
@@ -40,7 +40,30 @@ INSERT INTO EMP_SEQUENCE_TEST VALUES(
     500,             -- comm 숫자 타입
     10               -- deptno 숫자 타입
 );
+
+ROLLBACK; -- 트랜잭션 취소
+
 SELECT * FROM EMP_SEQUENCE_TEST;
 
 -- 기존 시퀀스 삭제 후 다시 생성
 DROP SEQUENCE EMP_SEQ;
+
+-- 시퀀스 마지막 값 조회
+SELECT EMP_SEQ.CURRVAL FROM DUAL;
+
+-- 시퀀스 수정 
+ALTER SEQUENCE EMP_SEQ
+    INCREMENT BY 10 -- 증가값을 10으로 변경
+    -- START WITH 1000; -- 시작값을 1000으로 변경
+
+-- 연습용 테이블 생성 후 작업하기. 
+-- DEPT -> DEPT_SEQ_TEST 테이블 복사 후 작업. 
+-- 퀴즈1, 
+-- 1부터 시작하는 DEPT_SEQ 시퀀스를 생성하시오.  
+-- 증감 10씩, 맥스 : 999999999, NOCYCLE 옵션 사용. 
+ 
+-- 퀴즈2, 
+-- DEPT_SEQ_TEST, 샘플 데이터를 추가해서, 증감값 확인,.(자동증가 확인이 목적)
+  
+-- 퀴즈3, 
+-- 마지막으로 생성된 시퀀스 번호 확인 및 증감 10 -> 100 변경도 해보고, 삭제도 해보기
