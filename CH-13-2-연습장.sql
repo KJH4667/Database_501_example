@@ -23,10 +23,12 @@ DROP INDEX EMP_SAL_IDX;
 
 --퀴즈1 ,
 -- SCOTT 계정에서 EMP 테이블의 JOB 열에 인덱스를 생성해보기
--- 
+CREATE INDEX EMP_JOB_IDX ON EMP(JOB);
  
 -- 퀴즈2, 이름은: EMP_ENAME_SAL_IDX , 형식 순서: (ENAME, SAL);
 -- 복합 인덱스를 ENAME, SAL 열로 생성해보기 
+CREATE INDEX EMP_ENAME_SAL_IDX ON EMP(ENAME, SAL);
   
 -- 퀴즈3, 
 --  USER_IND_COLUMNS 뷰를 사용해 JOB 인덱스가 생성 되었는지 확인 해보기. 
+SELECT * FROM USER_IND_COLUMNS WHERE INDEX_NAME = 'EMP_ENAME_SAL_IDX';
