@@ -4,7 +4,7 @@ DESC EMP;
 -- 기존 EMP 테이블은 4자리 사원 번호까지만 이용가능해서, 6자리로 교체.
 -- DROP TABLE EMP_INDEX_TEST;
 CREATE TABLE EMP_INDEX_TEST (
-    EMPNO NUMBER(6) PRIMARY KEY,
+    EMPNO NUMBER(15) PRIMARY KEY,
     ENAME VARCHAR2(50),
     JOB VARCHAR2(20),
     MGR NUMBER(6),
@@ -15,9 +15,9 @@ CREATE TABLE EMP_INDEX_TEST (
 );
 SELECT * FROM EMP_INDEX_TEST;
 
--- 더미 데이터 삽입 , 100000건 삽입
+-- 더미 데이터 삽입 , 100000건 삽입 -> 약 1억건으로 변경해서, 추가중 , 적당히 조절해서 확인
 BEGIN
-  FOR i IN 1..100000 LOOP
+  FOR i IN 1..10000000 LOOP
     INSERT INTO EMP_INDEX_TEST(empno, ename, job, sal, deptno)
     VALUES (
       10000 + i,

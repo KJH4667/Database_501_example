@@ -1,0 +1,56 @@
+-- 테이블처럼 사용하는 뷰 
+
+-- 기본 개념  
+
+-- | 용어 | 설명 |
+-- |------|------|
+-- | View | SELECT 결과를 가상의 테이블로 저장한 객체 |
+-- | Inline View | FROM절 내부에 작성된 SELECT 서브쿼리 |
+-- | WITH View | WITH절로 이름을 붙여 사용하는 인라인 뷰 |
+-- | ROWNUM | 결과 행 번호(Oracle 전용), TOP-N 필터링에 사용 |
+
+-- 기본 문법 예시
+-- -- 뷰 생성
+CREATE VIEW EMP_VIEW AS -- 뷰이름 : EMP_VIEW
+-- EMP 테이블에서 사원번호, 이름, 부서번호를 선택 -> 뷰에 넣을 예정.
+SELECT EMPNO, ENAME, DEPTNO FROM EMP WHERE DEPTNO = 10;
+
+-- 데이터 사전이용해서 뷰 정보 확인
+SELECT * FROM USER_VIEWS WHERE VIEW_NAME = 'EMP_VIEW';
+
+-- 뷰에서 데이터 조회
+SELECT * FROM EMP_VIEW;
+
+-- 뷰 삭제 
+DROP VIEW EMP_VIEW;
+
+-- 인라인 뷰 사용 예시
+ SELECT EMPNO, ENAME, SAL FROM EMP; -- 현재 사원 총 19명, 
+SELECT * FROM (
+    SELECT EMPNO, ENAME, SAL FROM EMP -- 서브쿼리 
+) WHERE ROWNUM <= 5; -- 상위 5개 행만 조회
+
+-- ROWNUM을 같이 출력하는 예제 
+SELECT ROWNUM, EMPNO, ENAME, SAL FROM (
+    SELECT EMPNO, ENAME, SAL FROM EMP
+) ;
+
+-- WITH 절을 사용한 뷰 예시
+WITH EMP_SAL_TOP_3 AS (
+    SELECT EMPNO, ENAME, SAL FROM EMP 
+)
+-- 상위 3개 행만 조회
+SELECT * FROM EMP_SAL_TOP_3 WHERE ROWNUM <= 3;
+
+-- EMP 테이블에서 부서번호가 20인 사원만 표시하는 뷰 생성
+CREATE VIEW EMP_DEPT20_VIEW AS
+SELECT EMPNO, ENAME,HIREDATE, DEPTNO FROM EMP WHERE DEPTNO = 20;
+
+-- 뷰에서 데이터 조회
+SELECT * FROM EMP_DEPT20_VIEW;
+
+-- 생성된 뷰의 구조 정보 확인 
+DESC EMP_DEPT20_VIEW;
+
+-- 생성 뷰 삭제 
+DROP VIEW EMP_DEPT20_VIEW;
