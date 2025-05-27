@@ -37,9 +37,14 @@ SELECT * FROM EMP;
 
 -- 퀴즈1, 
 -- SYSTEM 계정에서, LSY3 사용자 생성 , 패스워드 1234
- 
+ CREATE USER LSY3 IDENTIFIED BY 1234; -- 사용자 생성
 -- 퀴즈2, 
 -- LSY3 계정에 접근 권한, 자원 권한 부여 
-  
+GRANT CONNECT, RESOURCE TO LSY3; -- 세션 생성 권한 부여
+-- SCOTT 계정으로 생성한 테이블 EMP -> LSY3 계정에서 접근 가능 확인
+GRANT SELECT ON SCOTT.EMP TO LSY3; -- SCOTT.EMP 테이블에 대한 SELECT 권한 부여
+
+SELECT * FROM SCOTT.EMP;  
 -- 퀴즈3, 
 -- 패스워드 5678 변경해보기., 유저 삭제 확인 
+ALTER USER LSY3 IDENTIFIED BY 5678; -- 비밀번호 변경
