@@ -22,11 +22,30 @@ SELECT * FROM emp_default;
 -- 퀴즈1, 
 -- 테이블명 : EMP_MEMBER, 컬럼명 : ID(NUMBER), NAME(VARCHAR2), REGDATE(DATE)
 -- REGDATE , 제약 조건 DEFAULT 이용하고, 현재 날짜로 입력하기. 
- 
+ CREATE TABLE emp_member (
+  id NUMBER PRIMARY KEY,
+  name VARCHAR2(50) NOT NULL,
+  regdate DATE DEFAULT SYSDATE);
+  -- 샘플데이터 추가
+  INSERT INTO emp_member (id, name) VALUES (1, '홍길동'); -- regdate는 기본값 SYSDATE
+SELECT * FROM emp_member;
 -- 퀴즈2, 
 -- 테이블명 : PRODUCT, 컬럼명 : PCODE (VARCHAR2), PNAME (VARCHAR2),USE_YN (CHAR(1))
 -- USE_YN (CHAR(1)), DEFAULT 이용하고, Y 
+CREATE TABLE product (
+  pcode VARCHAR2(10) PRIMARY KEY,
+  pname VARCHAR2(50) NOT NULL,
+  use_yn CHAR(1) DEFAULT 'Y' CHECK (use_yn IN ('Y', 'N')) -- Y 또는 N만 허용
+);
+INSERT INTO product (pcode, pname) VALUES ('P001', '노트북'); -- use_yn은 기본값 Y
+SELECT * FROM product;
   
 -- 퀴즈3, 
 -- 테이블명 : INVENTORY , 컬럼명 : ITEM_ID (NUMBER), QUANTITY (NUMBER)
 -- QUANTITY , DEFAULT, 기본 수량 10으로 설정 해보기. 
+CREATE TABLE inventory (
+  item_id NUMBER PRIMARY KEY,
+  quantity NUMBER DEFAULT 10 CHECK (quantity >= 0) -- 수량은 0 이상
+);
+INSERT INTO inventory (item_id) VALUES (1); -- quantity는 기본값 10
+SELECT * FROM inventory;
