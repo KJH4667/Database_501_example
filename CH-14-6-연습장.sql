@@ -29,10 +29,29 @@ SELECT * FROM EMP_CHECK;
 -- EMP_CHECK , 테이블 생성해서 해보기
 -- 퀴즈1, 
 -- 테이블 명: EMP_CHECK , SAL 0 이상, 10000 이하 경우만 입력 허용
- 
 -- 퀴즈2, 
 -- 테이블 명: EMP_CHECK , 직무(JOB) : 'MANAGER', 'CLERK', 'ANALYST', 
 -- 현재 직무 외에는 입력 불가 
   
 -- 퀴즈3, 
 -- 테이블 명: EMP_CHECK, COMM , NOT NULL 또는 0이상인 조건만 허용.
+
+ CREATE TABLE EMP_CHECK3 (
+    EMPNO NUMBER(4) PRIMARY KEY,
+    ENAME VARCHAR2(10) NOT NULL,
+    MGR NUMBER(4),
+    HIREDATE DATE DEFAULT SYSDATE,
+    -- NUMBER(7,2) : -- 전체 7자리, 소수점 2자리, 즉 정수 5자리 + 소수 2자리
+    SAL NUMBER(7,2) CHECK (SAL >= 0 AND SAL <= 10000), -- 급여는 0 이상
+    JOB VARCHAR2(9) CHECK (JOB IN ('MANAGER', 'CLERK', 'ANALYST')), -- 직무는 지정된 값 중 하나
+    COMM NUMBER(7,2) CHECK (COMM >= 0 AND COMM IS NOT NULL), -- 커미션은 0 이상 또는 NULL
+    DEPTNO NUMBER(2) CHECK (DEPTNO IN (10, 20, 30, 40)) -- 부서번호는 지정된 값 중 하나
+);
+-- 제약 조건 조회
+SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'EMP_CHECK2';
+
+INSERT INTO EMP_CHECK2 (EMPNO, ENAME, JOB, SAL, DEPTNO) VALUES (1, '홍길동', 'CLERK2', 1000, 10); 
+INSERT INTO EMP_CHECK2 (EMPNO, ENAME, JOB, SAL, DEPTNO) VALUES (1, '홍길동', 'CLERK', 100000, 10); 
+INSERT INTO EMP_CHECK3 (EMPNO, ENAME, JOB, SAL, COMM) VALUES (2, '홍길동', 'CLERK', 1000, NULL); 
+SELECT * FROM EMP_CHECK3;
+
