@@ -48,3 +48,16 @@ SELECT * FROM TABLE_UNIQUE;
 -- 데이터 중복 방지 확인. 같은 이메일로 확인
 INSERT INTO TABLE_UNIQUE(ID, NAME, EMAIL) VALUES(
     TABLE_UNIQUE_SEQ.NEXTVAL, '홍길동2', 'HONG@NAVER.COM');
+
+
+-- 퀴즈1, 
+-- 테이블 생성 시 UNIQUE 지정 해보기, 방법 1, 2,3 
+-- 테이블명 :  user_table, 컬럼, user_id에 유니크 설정 
+ 
+-- 퀴즈2, 
+-- 테이블 생성 후, 제약 조건 추가 , 
+-- 테이블명 :  user_table2, 컬럼, user_id에 유니크 설정 
+  
+-- 퀴즈3, 
+-- user_table2 , 시퀀스 생성 후, 자동 번호 생성기를 이용해서, 데이터 입력 . 
+-- 중복 테스트도 해보기. 
