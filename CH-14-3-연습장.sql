@@ -1,0 +1,50 @@
+-- 중복 되지 않는 값 UNIQUE 제약 조건
+
+-- 기본 문법 
+-- 테이블 생성시 제약 조건 추가 
+-- CREATE TABLE 테이블명 (
+-- CONSTRAINT: 제약조건명 제약조건종류 (열명),
+-- 추가 방법1, 추천 
+-- EMAIL VARCHAR2(50) CONSTRAINT email_unique UNIQUE,
+
+-- 추가 방법 1-2 , 이름을 자동으로 생성 -> 예시 -> SYS_C007126(자동 생성 이름)
+-- EMAIL VARCHAR2(50) UNIQUE
+
+-- 추가 방법2
+-- 테이블을 생성 후, 제약 조건만 따로 추가. 
+-- ALTER TABLE 테이블명 ADD CONSTRAINT 제약조건명 제약조건종류 (열명)
+ALTER TABLE TABLE_UNIQUE ADD CONSTRAINT email_unique22 UNIQUE (EMAIL);
+
+-- 제약 조건 삭제 
+-- ALTER TABLE 테이블명 DROP CONSTRAINT 제약조건명;
+ALTER TABLE TABLE_UNIQUE DROP CONSTRAINT email_unique;
+
+-- 제약 조건 확인 
+SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'TABLE_UNIQUE';
+
+DROP TABLE TABLE_UNIQUE;
+CREATE TABLE TABLE_UNIQUE(
+    ID NUMBER(5) PRIMARY KEY,
+    NAME VARCHAR2(20) NOT NULL,
+    -- 수동으로 제약조건의 이름을 만들어서 직접 추가
+    EMAIL VARCHAR2(50) CONSTRAINT email_unique UNIQUE
+);
+SELECT * FROM TABLE_UNIQUE;
+-- 제약 조건 확인 
+SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'TABLE_UNIQUE';
+-- 시퀀스 생성 후, 샘플 데이터 추가시, 자동 번호 생성 이용해보기. 
+CREATE SEQUENCE TABLE_UNIQUE_SEQ
+START WITH 1
+INCREMENT BY 1  
+MAXVALUE 99999
+NOCYCLE;    
+-- 시퀀스 생성 확인 
+SELECT * FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'TABLE_UNIQUE_SEQ';
+-- 샘플 데이터 추가 
+INSERT INTO TABLE_UNIQUE(ID, NAME, EMAIL) VALUES(
+    TABLE_UNIQUE_SEQ.NEXTVAL, '홍길동', 'HONG@NAVER.COM');
+-- 데이터 조회 
+SELECT * FROM TABLE_UNIQUE;    
+-- 데이터 중복 방지 확인. 같은 이메일로 확인
+INSERT INTO TABLE_UNIQUE(ID, NAME, EMAIL) VALUES(
+    TABLE_UNIQUE_SEQ.NEXTVAL, '홍길동2', 'HONG@NAVER.COM');
