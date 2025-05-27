@@ -39,3 +39,15 @@ INSERT INTO user_table(ID, NAME, USER_ID) VALUES(1, '이순신', 'LEE');
 
 -- 샘플 데이터 추가, NULL 방지 확인
 INSERT INTO user_table(ID, NAME, USER_ID) VALUES(NULL, '강감찬', 'KANG');
+
+-- 퀴즈1, 
+-- 테이블 생성 시 PRIMARY 지정 해보기, 방법 1, 2,3 
+-- 테이블명 :  user_primay, 컬럼, user_id에 PRIMARY 설정 
+ 
+-- 퀴즈2, 
+-- 테이블 생성 후, 제약 조건 추가 , 
+-- 테이블명 :  user_primay2, 컬럼, user_id에 PRIMARY 설정 
+  
+-- 퀴즈3, 
+-- user_primay2 , 데이터 입력 . 
+-- 중복 , null 테스트도 해보기. 
