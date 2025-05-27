@@ -7,6 +7,7 @@ CREATE TABLE EMP_CHECK (
     JOB VARCHAR2(9),
     MGR NUMBER(4),
     HIREDATE DATE DEFAULT SYSDATE,
+    -- NUMBER(7,2) : -- 전체 7자리, 소수점 2자리, 즉 정수 5자리 + 소수 2자리
     SAL NUMBER(7,2) CHECK (SAL >= 0), -- 급여는 0 이상
     COMM NUMBER(7,2) CHECK (COMM >= 0 OR COMM IS NULL), -- 커미션은 0 이상 또는 NULL
     DEPTNO NUMBER(2) CHECK (DEPTNO IN (10, 20, 30, 40)) -- 부서번호는 지정된 값 중 하나
@@ -21,4 +22,17 @@ ALTER TABLE EMP_CHECK DROP CONSTRAINT EMP_SAL_CHECK;
 
 -- 샘플 데이터 삽입, 제약 조건 위배 확인
 INSERT INTO EMP_CHECK (EMPNO, ENAME, JOB, SAL, DEPTNO) VALUES (1, '홍길동', 'CLERK', 1000, 10); -- 정상
+INSERT INTO EMP_CHECK (EMPNO, ENAME, JOB, SAL, DEPTNO) VALUES (2, '홍길동', 'CLERK', 1000, 50); -- 오류
+INSERT INTO EMP_CHECK (EMPNO, ENAME, JOB, SAL, DEPTNO) VALUES (3, '홍길동', 'CLERK', -100, 40); -- 오류
+SELECT * FROM EMP_CHECK;
 
+-- EMP_CHECK , 테이블 생성해서 해보기
+-- 퀴즈1, 
+-- 테이블 명: EMP_CHECK , SAL 0 이상, 10000 이하 경우만 입력 허용
+ 
+-- 퀴즈2, 
+-- 테이블 명: EMP_CHECK , 직무(JOB) : 'MANAGER', 'CLERK', 'ANALYST', 
+-- 현재 직무 외에는 입력 불가 
+  
+-- 퀴즈3, 
+-- 테이블 명: EMP_CHECK, COMM , NOT NULL 또는 0이상인 조건만 허용.
