@@ -1,0 +1,24 @@
+-- 데이터 형태와 범위를 정하는 CHECK 제약 조건
+
+-- 방법1, 테이블 생성시 제약 조건 추가 
+CREATE TABLE EMP_CHECK (
+    EMPNO NUMBER(4) PRIMARY KEY,
+    ENAME VARCHAR2(10) NOT NULL,
+    JOB VARCHAR2(9),
+    MGR NUMBER(4),
+    HIREDATE DATE DEFAULT SYSDATE,
+    SAL NUMBER(7,2) CHECK (SAL >= 0), -- 급여는 0 이상
+    COMM NUMBER(7,2) CHECK (COMM >= 0 OR COMM IS NULL), -- 커미션은 0 이상 또는 NULL
+    DEPTNO NUMBER(2) CHECK (DEPTNO IN (10, 20, 30, 40)) -- 부서번호는 지정된 값 중 하나
+);
+-- 방법2, 테이블 생성 후 ALTER TABLE 명령어로 제약 조건 추가
+ALTER TABLE EMP_CHECK ADD CONSTRAINT EMP_SAL_CHECK CHECK (SAL >= 0);
+
+-- 제약 조건 조회 
+SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'EMP_CHECK';
+-- 제약 조건 삭제 
+ALTER TABLE EMP_CHECK DROP CONSTRAINT EMP_SAL_CHECK;
+
+-- 샘플 데이터 삽입, 제약 조건 위배 확인
+INSERT INTO EMP_CHECK (EMPNO, ENAME, JOB, SAL, DEPTNO) VALUES (1, '홍길동', 'CLERK', 1000, 10); -- 정상
+
