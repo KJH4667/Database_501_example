@@ -43,11 +43,37 @@ INSERT INTO user_table(ID, NAME, USER_ID) VALUES(NULL, '강감찬', 'KANG');
 -- 퀴즈1, 
 -- 테이블 생성 시 PRIMARY 지정 해보기, 방법 1, 2,3 
 -- 테이블명 :  user_primay, 컬럼, user_id에 PRIMARY 설정 
+DROP TABLE user_primay;
+CREATE TABLE user_primay(
+    ID NUMBER(5) ,
+    NAME VARCHAR2(20) NOT NULL,
+    -- USER_ID VARCHAR2(20) PRIMARY KEY -- 방법1
+    -- USER_ID2 VARCHAR2(20) CONSTRAINT user_id_primary PRIMARY KEY -- 방법2
+    USER_ID2 VARCHAR2(20) -- 방법3
+);
+ALTER TABLE user_primay ADD CONSTRAINT user_id_primary PRIMARY KEY (USER_ID2); -- 방법3
+-- 제약조건 확인 , 데이터 사전
+SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'USER_PRIMAY';
  
 -- 퀴즈2, 
 -- 테이블 생성 후, 제약 조건 추가 , 
 -- 테이블명 :  user_primay2, 컬럼, user_id에 PRIMARY 설정 
-  
+  CREATE TABLE user_primay2(
+    ID NUMBER(5) ,
+    NAME VARCHAR2(20) NOT NULL,
+    -- USER_ID VARCHAR2(20) PRIMARY KEY -- 방법1
+    -- USER_ID2 VARCHAR2(20) CONSTRAINT user_id_primary PRIMARY KEY -- 방법2
+    USER_ID2 VARCHAR2(20) -- 방법3
+);
+ALTER TABLE user_primay2 ADD CONSTRAINT user_id_primary_q2 PRIMARY KEY (USER_ID2); -- 방법3
+-- 제약조건 확인 , 데이터 사전
+SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'USER_PRIMAY2';
 -- 퀴즈3, 
 -- user_primay2 , 데이터 입력 . 
 -- 중복 , null 테스트도 해보기. 
+-- 샘플 데이터 추가, 중복 방지 확인
+INSERT INTO user_primay2(ID, NAME, USER_ID2) VALUES(1, '홍길동', 'HONG');
+INSERT INTO user_primay2(ID, NAME, USER_ID2) VALUES(2, '이순신', 'HONG');
+
+-- 샘플 데이터 추가, NULL 방지 확인
+INSERT INTO user_primay2(ID, NAME, USER_ID2) VALUES(3, '강감찬', null);
