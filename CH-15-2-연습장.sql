@@ -106,3 +106,15 @@ GRANT CREATE SESSION , RESOURCE TO my_custom_role; -- 세션 생성 권한 부�
 
 -- 사용자 정의 롤을 사용자에게 부여
 GRANT my_custom_role TO LSY4; -- 사용자에게 사용자 정의 롤 부여
+
+-- 퀴즈1, 
+-- SYSTEM(계정 또는 스콧) 사용자 정의 롤 CREATE TABLE, CREATE VIEW )생성 하기. 
+-- LSY5 새로운 계정 생성하고, 
+-- 사용자 정의 롤 부여(CREATE TABLE, CREATE VIEW )
+ 
+-- 퀴즈2, 
+-- 부여된 계정 LSY5 , 디비 접근 및 테이블 생성, 뷰 생성도 한번 해보기. 
+-- 사용량 부분 오류 발생시, 조정해보기. 힌트) 미리 RESOURCE 권한 주기 
+  
+-- 퀴즈3, 
+-- 권한 조회 확인. 
