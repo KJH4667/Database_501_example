@@ -185,4 +185,114 @@ INSERT INTO WISHLIST_ITEMS (WISHLIST_ITEM_ID, WISHLIST_ID, PRODUCT_ID) VALUES (1
 SELECT * FROM WISHLIST_ITEMS;
 
 -- 검사 도구로, 다이어그램 등을 이용해서 그림으로 확인. 
+-- 
+-- 아래 사이트에서, 그림 도식화 할 예정, 
+-- https://gist.github.com/ , 
+-- .md 파일에, mermaid 라는 문법을 통해서, erd 그림을 그리기. 
+
+-- 예시 , 연속적으로 작업 하는 중이라서, 이미 코파일럿 메모리에 작성된 테이블이 있다는 가정하에 
+-- 만약, 연속 작업이 아니라고 한다면, 실제 테이블을 같이 복사를 하고 물어보기. 
+--
+-- 현재는, 연속적인 상황이라서, 이렇게만 질의하기. 
+위에 작성된 ddl.sql 파일, create 테이블을 참고해서, 
+mermaid 문법으로 , erd 다이어그램 작성하는 코드 생성해줘 
+
+-- 1차 결과 코드에서, 앞쪽에 (`) 백티 3개 있고, 맨 마지막에도 (`) 백티 3개 있음
+-- 여기서 마지막 백틱 3개는 삭제 .
+
+```mermaid
+erDiagram
+    USERS {
+        NUMBER USER_ID PK
+        VARCHAR2 USERNAME
+        VARCHAR2 PASSWORD
+        VARCHAR2 EMAIL
+        DATE CREATED_AT
+    }
+    POSTS {
+        NUMBER POST_ID PK
+        NUMBER USER_ID FK
+        VARCHAR2 TITLE
+        CLOB CONTENT
+        DATE CREATED_AT
+    }
+    COMMENTS {
+        NUMBER COMMENT_ID PK
+        NUMBER POST_ID FK
+        NUMBER USER_ID FK
+        VARCHAR2 CONTENT
+        DATE CREATED_AT
+    }
+    PRODUCTS {
+        NUMBER PRODUCT_ID PK
+        VARCHAR2 NAME
+        CLOB DESCRIPTION
+        NUMBER PRICE
+        NUMBER STOCK
+        DATE CREATED_AT
+    }
+    CARTS {
+        NUMBER CART_ID PK
+        NUMBER USER_ID FK
+        DATE CREATED_AT
+    }
+    CART_ITEMS {
+        NUMBER CART_ITEM_ID PK
+        NUMBER CART_ID FK
+        NUMBER PRODUCT_ID FK
+        NUMBER QUANTITY
+    }
+    ORDERS {
+        NUMBER ORDER_ID PK
+        NUMBER USER_ID FK
+        DATE ORDER_DATE
+        VARCHAR2 STATUS
+    }
+    ORDER_ITEMS {
+        NUMBER ORDER_ITEM_ID PK
+        NUMBER ORDER_ID FK
+        NUMBER PRODUCT_ID FK
+        NUMBER QUANTITY
+        NUMBER PRICE
+    }
+    PAYMENTS {
+        NUMBER PAYMENT_ID PK
+        NUMBER ORDER_ID FK
+        NUMBER AMOUNT
+        DATE PAYMENT_DATE
+        VARCHAR2 PAYMENT_METHOD
+    }
+    DELIVERIES {
+        NUMBER DELIVERY_ID PK
+        NUMBER ORDER_ID FK
+        VARCHAR2 ADDRESS
+        VARCHAR2 DELIVERY_STATUS
+        DATE DELIVERY_DATE
+    }
+    WISHLISTS {
+        NUMBER WISHLIST_ID PK
+        NUMBER USER_ID FK
+        DATE CREATED_AT
+    }
+    WISHLIST_ITEMS {
+        NUMBER WISHLIST_ITEM_ID PK
+        NUMBER WISHLIST_ID FK
+        NUMBER PRODUCT_ID FK
+    }
+
+    USERS ||--o{ POSTS : "HAS"
+    USERS ||--o{ COMMENTS : "HAS"
+    USERS ||--o{ CARTS : "HAS"
+    USERS ||--o{ ORDERS : "HAS"
+    USERS ||--o{ WISHLISTS : "HAS"
+    POSTS ||--o{ COMMENTS : "HAS"
+    PRODUCTS ||--o{ CART_ITEMS : "IN"
+    PRODUCTS ||--o{ ORDER_ITEMS : "IN"
+    PRODUCTS ||--o{ WISHLIST_ITEMS : "IN"
+    CARTS ||--o{ CART_ITEMS : "CONTAINS"
+    ORDERS ||--o{ ORDER_ITEMS : "CONTAINS"
+    ORDERS ||--o{ PAYMENTS : "PAID_BY"
+    ORDERS ||--o{ DELIVERIES : "DELIVERED_BY"
+    WISHLISTS ||--o{ WISHLIST_ITEMS : "CONTAINS"
+
 
